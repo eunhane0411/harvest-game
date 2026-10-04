@@ -18,6 +18,7 @@ let gloveImg;
 let basketImg;
 let startImg;
 let howtoImg;
+let titleImg;
 let assetError = false;
 
 let video;
@@ -70,6 +71,7 @@ function preload() {
   });
   startImg = loadImage("assets/btn_start.png");
   howtoImg = loadImage("assets/btn_howto.png");
+  titleImg = loadImage("assets/title.png");
 }
 
 function setup() {
@@ -941,9 +943,28 @@ function layoutHomeMenu() {
   ];
 }
 
+function drawHomeTitle(buttons) {
+  if (!titleImg || titleImg.width < 2 || !buttons.length) return;
+  const buttonTop = buttons[0].y - buttons[0].h / 2;
+  const aspect = titleImg.width / titleImg.height;
+  const topPad = height * 0.04;
+  const gap = Math.min(width, height) * 0.015;
+  let titleH = buttonTop - topPad - gap;
+  if (titleH < 48) return;
+  titleH = Math.min(titleH, height * 0.26);
+  let titleW = titleH * aspect;
+  const maxW = Math.min(width * 0.72, 980);
+  if (titleW > maxW) {
+    titleW = maxW;
+    titleH = titleW / aspect;
+  }
+  image(titleImg, width / 2, topPad + titleH / 2, titleW, titleH);
+}
+
 function drawHome() {
   homeMenu = layoutHomeMenu();
   imageMode(CENTER);
+  drawHomeTitle(homeMenu);
   for (let i = 0; i < homeMenu.length; i++) {
     const button = homeMenu[i];
     if (!button.img || button.img.width < 2) continue;

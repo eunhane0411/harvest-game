@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>벼 수확 게임</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #b7ddf3;
+      touch-action: none;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    #name-card {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 33%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 22px;
+      background: rgba(255, 248, 220, 0.96);
+      border: 6px solid #7a4010;
+      border-radius: 28px;
+      box-shadow: 0 10px 0 rgba(122, 64, 16, 0.25);
+      font-family: Jua, "Malgun Gothic", sans-serif;
+      touch-action: auto;
+    }
+
+    #name-card.show {
+      display: flex;
+    }
+
+    #name-card p {
+      margin: 0;
+      color: #7a4010;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    #record-note {
+      display: none;
+      color: #c45c12;
+      font-size: 26px;
+    }
+
+    #farmer-name {
+      width: min(68vw, 360px);
+      height: 54px;
+      border: 4px solid #7a4010;
+      border-radius: 18px;
+      background: #fffdf6;
+      color: #7a4010;
+      font-family: inherit;
+      font-size: 30px;
+      font-weight: 700;
+      text-align: center;
+      outline: none;
+      touch-action: auto;
+    }
+
+    #name-submit {
+      min-width: 160px;
+      height: 54px;
+      padding: 0 28px;
+      border: 4px solid #7a4010;
+      border-radius: 18px;
+      background: #ffd630;
+      color: #7a4010;
+      font-family: inherit;
+      font-size: 30px;
+      font-weight: 700;
+      cursor: pointer;
+      touch-action: auto;
+    }
+
+    #name-submit:hover {
+      background: #ffec82;
+    }
+
+    #size-panel {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 16;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: min(34vw, 280px);
+      padding: 10px 14px 12px;
+      background: rgba(255, 248, 220, 0.92);
+      border: 4px solid #7a4010;
+      border-radius: 22px;
+      box-shadow: 0 6px 0 rgba(122, 64, 16, 0.2);
+      font-family: Jua, "Malgun Gothic", sans-serif;
+      color: #7a4010;
+      touch-action: auto;
+    }
+
+    #size-panel label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    #size-panel input[type="range"] {
+      width: 100%;
+      height: 28px;
+      margin: 0;
+      accent-color: #e39b2b;
+      cursor: pointer;
+      touch-action: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="size-panel">
+    <label>장갑 크기 조절
+      <input id="glove-size" type="range" min="60" max="180" value="100" aria-label="장갑 크기 조절">
+    </label>
+    <label>곡식 크기 조절
+      <input id="rice-size" type="range" min="60" max="180" value="100" aria-label="곡식 크기 조절">
+    </label>
+  </div>
+  <form id="name-card" autocomplete="off">
+    <p id="record-note">새로운 최고 기록!</p>
+    <p>이름을 적어주세요!</p>
+    <input id="farmer-name" maxlength="8" placeholder="이름" aria-label="이름">
+    <button id="name-submit" type="submit">등록</button>
+  </form>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ml5@1.2.1/dist/ml5.min.js"></script>
+  <script src="sketch.js"></script>
+</body>
+</html>
